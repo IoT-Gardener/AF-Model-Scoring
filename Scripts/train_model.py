@@ -2,7 +2,7 @@
 Script to load a dataset, train a series of ML models, save them,
 then publish results to a NoSQL db of scores
 """
-
+import os
 import pickle
 import pandas as pd
 import numpy as np
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     print("Hello world")
 
     # Load the iris dataset
-    iris_df = load_dataset("../data/iris.data", ["Sepal Length", "Sepal Width",
+    iris_df = load_dataset(f"{os.getcwd()}/data/iris.data", ["Sepal Length", "Sepal Width",
                                               "Petal Length", "Petal Width", "Class"])
 
     # Split the data into train and test
@@ -85,4 +85,4 @@ if __name__ == "__main__":
         # Score the models on the test data and calculate accuracy
         print(f"{name} accuracy: {accuracy_score(model.predict(test_features), test_labels)}")
         # Save the model to the ../models directory
-        pickle.dump(model, open(f"../models/{name}.pkl", 'wb'))
+        pickle.dump(model, open(f"{os.getcwd()}/models/{name}.pkl", 'wb'))
