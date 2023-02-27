@@ -5,6 +5,7 @@ import pickle
 import azure.functions as func
 import numpy as np
 
+
 def return_error(msg: str) -> func.HttpResponse:
     """Function to create http response for any given error
 
@@ -13,9 +14,11 @@ def return_error(msg: str) -> func.HttpResponse:
     :return: Returns a HttpResponse for the relevant issue
     :rtype: func.HttpResponse
     """
-    return func.HttpResponse(body=f"{msg}", 
+    return func.HttpResponse(body=msg, 
                              headers={"Content-Type": "application/json"},
-                             status_code=500)
+                             status_code=500
+    )
+
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
@@ -52,6 +55,14 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         logging.error(f"Failed to query model, {e}")
         return return_error("Failed to query model")
 
-    return func.HttpResponse(f"{prediction}",
+    # Format output
+    output = {
+                "Prediction": int(prediction[0]),
+                "Model": "Random Forest",
+                "Input": json_msg
+             }
+
+    return func.HttpResponse(body=json.dumps(output),
                              headers={"Content-Type": "application/json"},
-                             status_code=200)
+                             status_code=200
+    )
