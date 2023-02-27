@@ -53,4 +53,5 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         return return_error("Failed to query model")
 
     return func.HttpResponse(f"{prediction}",
+                             headers={"Content-Type": "application/json"},
                              status_code=200)
