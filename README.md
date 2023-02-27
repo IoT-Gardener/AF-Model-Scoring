@@ -20,3 +20,21 @@ Bonus step is to install of all the required python packages from the requiremen
 ```
 pip install -r requirements.txt
 ```
+
+## MLFlow Connection
+As part of the advanced function models will be registered to, and loaded directly from MLFlow in DataBricks, the below instructions will outline how to connect from your local machine to MLFlow.
+1) Generate a token from DataBricks by going to *User Settings* -> *Access tokens* -> *Generate new token*
+2) Run the following command:
+```
+databricks configure --token
+```
+3) Enter the databricks host URL & Token into the prompts
+4) Create an environment variable for the expierment being used for this demo:
+- Windows:
+```
+set IRIS_EXPERIMENT=<Experiment URL>
+```
+- Linux:
+```
+export IRIS_EXPERIMENT=<Experiment URL>
+```
