@@ -6,7 +6,6 @@ from mlflow.tracking import MlflowClient
 
 
 mlflow_uri = "databricks"
-client = MlflowClient(tracking_uri=mlflow_uri)
 mlflow.set_tracking_uri(mlflow_uri)
 
 if __name__ == "__main__":
