@@ -14,7 +14,6 @@ if __name__ == "__main__":
 
     # Set the MLFlow experiment from the URL
     experiment_name = os.getenv("IRIS_EXPERIMENT")
-    print(experiment_name)
     mlflow.set_experiment(experiment_name=experiment_name)
 
     # Start an MLFlow run
