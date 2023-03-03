@@ -1,14 +1,17 @@
 # AF-Model-Scoring
 Azure Functions are a fantastic way to deploy real time endpoints for model scoring, this repo will contain a complete guide and code examples on how to quickly and easily deploy your ML models for real time scoring using Azure Functions.
 
-For more information on *why* Azure functions are such a great tool, and for a more in depth break down of the code please take a look at my blog, [found here]().
+<!-- For more information on *why* Azure functions are such a great tool, and for a more in depth break down of the code please take a look at my blog, [found here](). -->
 
  **Table of content:**
  - [Local Setup](#item-one)
     - [Python Virtual Environment](#item-one-a)
     - [MLFlow Connection](#item-one-b)
     - [Running the Functions Locally](#item-one-c)
- <!-- - [Deployment](#item-two) -->
+ - [Deployment](#item-two)
+    - [Create a Resource Group](#item-two-a)
+    - [Create a Function App](#item-two-b)
+    - [Deploy the Functions](#item-two-c)
 
 <a id="item-one"></a>
 # Local Setup
@@ -42,7 +45,7 @@ pip install -r requirements.txt
 ## MLFlow Connection
 As part of the advanced function models will be registered to, and loaded directly from managed MLFlow in Databricks, the below instructions will outline how to connect from your local machine to MLFlow.
 
-If you do not already managed MLFlow you can try it for free [using this link](https://www.databricks.com/product/managed-mlflow).
+If you do not already managed MLFlow you can try it for free using the link [here](https://www.databricks.com/product/managed-mlflow).
 
 1) Generate a token from Databricks by going to *User Settings* -> *Access tokens* -> *Generate new token*
 2) Run the following command:
@@ -140,8 +143,44 @@ curl --location --request GET 'http://localhost:7071/api/Advanced' \
 "Petal_Width": "not a double"
 }'
 ```
-<!-- <a id="item-two"></a>
+<a id="item-two"></a>
 # Deployment
+<a id="item-two-a"></a>
 ## Create a Resource Group
+In order to deploy the functions to an end-point you will need a resource group, a resource group is a container that holds related resources for the Azure solution.
+
+You can find a tutorial on how to create a resource group [here](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal)
+
+<a id="item-two-b"></a>
 ## Create a Function App
-## Deploy the Functions -->
+1) In the resource group you just made press the create button (green)
+
+![](images/Create_Resource_Group.png)
+
+2) Search for Function App in the search bar (green), then in the function app press create (blue)
+
+![](images/Create_Function_App.png)
+
+3) Configure the function app by selecting the following settings:
+    - Select your Azure subscription and the resource group you just created (green)
+    - Give the function app a meaningful name (blue)
+    - Select the python Runtime stack, and set the version to 3.9 (red)
+    - Select a local region (yellow)
+    - Select a plan (white), Consumption (Serverless) is the easiest
+    - Press review and create (pink)
+
+    There are additional steps for configuration if you wish for a more personalised setup, but the defaults for these will work just fine.
+
+![](images/Function_App_Setup.png)
+
+4) Finally press create (green), wait for approximately 5 minutes for the app to deploy, then you are done
+
+![](images/Function_App_Finish.png)
+
+<a id="item-two-c"></a>
+## Deploy the Functions
+Deploying the function couldn't be easier, simply go to the *Azure Extension* in VSCode (green), select *Deploy* (blue) then select your Function app from the menu (red).
+
+![](images/Deploy.png)
+
+Boom. Function deployed. Head into the Azure portal to get the URL, then you can make requests in the same way as outlined in [Running Functions Locally](#item-one-c) instead just replacing the URL with the URL of the live function.
