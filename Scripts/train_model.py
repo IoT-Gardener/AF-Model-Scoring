@@ -1,6 +1,5 @@
 """
-Script to load a dataset, train a series of ML models, save them,
-then publish results to a NoSQL db of scores
+Script to load a dataset, train a series of ML models, and save them locally
 """
 import os
 import pickle
